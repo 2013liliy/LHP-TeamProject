@@ -50,7 +50,7 @@ public class UmsAdminController {
 			logger.info("User " + param.getUsername() + " logged in.");
 			return new Response(200, null, "Succeed");
 		} else {
-			logger.warn("user " + param.getUsername() + " failed to log in.");
+			logger.warn("User " + param.getUsername() + " failed to log in.");
 			return new Response(404, null, "Fail");
 		}
 	}
