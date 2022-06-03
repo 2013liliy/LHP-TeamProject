@@ -34,7 +34,7 @@ public class UmsAdminController {
 			log.info("User {} logged in.", param.getUsername());
 			return CommonResult.success(tokenMap);
 		} else {
-			log.warn("user {} failed to log in.",param.getUsername());
+			log.warn("User {} failed to log in.",param.getUsername());
 			return new CommonResult(404, null, "Fail");
 		}
 	}
