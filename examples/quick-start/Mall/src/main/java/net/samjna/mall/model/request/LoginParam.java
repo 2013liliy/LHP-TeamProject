@@ -1,4 +1,4 @@
-package net.samjna.mall.model.Request;
+package net.samjna.mall.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
