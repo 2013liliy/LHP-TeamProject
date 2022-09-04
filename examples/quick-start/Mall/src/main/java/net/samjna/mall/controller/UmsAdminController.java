@@ -1,6 +1,7 @@
 package net.samjna.mall.controller;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,18 +40,31 @@ public class UmsAdminController {
 			return new CommonResult(404, null, "Fail");
 		}
 	}
-
+	
+	@PostMapping("role/update")
 	@ResponseBody
+	public CommonResult update(@RequestParam Long adminId, @RequestParam Long[] roleIds) { // 传入参数为 RequestHeader 中的 parameter （在文档中标识为 query）
+		log.info("Updating user " + adminId + "'s role: " + Arrays.toString(roleIds) + ".");
+		return new CommonResult(200, adminId + "'s info", "Succeed");
+	}
+
+	@GetMapping("/{id}")
+	@ResponseBody
+	public CommonResult info(@PathVariable Long id) { // 直接通过路径传入参数 （在文档中标识为 path）
+		log.info("Getting user " + id + "'s information...");
+		return new CommonResult(200, id + "'s info", "Succeed");
+	}
+
 	@PostMapping("/logout")
+	@ResponseBody
 	public CommonResult logout() {
 		log.info("User logged out");
 		return new CommonResult(200, null, "Succeed");
 	}
 
-	@ResponseBody
 	@GetMapping("/info")
-	public CommonResult info(Principal principal) { // 传入参数为 RequestHeader 中的 parameter （在文档中标识为 query）
-
+	@ResponseBody
+	public CommonResult info(Principal principal) {
 		String username = "abc";
 		log.info("Getting user " + username + "'s information...");
 		Map<String, Object> data = new HashMap<>();
@@ -60,12 +75,4 @@ public class UmsAdminController {
 
 		return CommonResult.success(data);
 	}
-
-	@GetMapping("/{id}")
-	@ResponseBody
-	public CommonResult info(@PathVariable Long id) { // 直接通过路径传入参数 （在文档中标识为 path）
-		log.info("Getting user " + id + "'s information...");
-		return new CommonResult(200, id + "'s info", "Succeed");
-	}
-
 }
